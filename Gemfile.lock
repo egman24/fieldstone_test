@@ -1,0 +1,12 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ZenTest (4.9.1)
+    minitest (5.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ZenTest
+  minitest
