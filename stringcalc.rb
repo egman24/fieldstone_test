@@ -1,29 +1,19 @@
 class Calculator
 
   def add(string)
-    return 0 if string.empty?  
-    numbers   = decompose(string)
-    negatives = numbers.select { |n| n < 0 }
-    
-   if negatives.empty?
-      return numbers.reduce { |acc, n| acc + n }
-    else 
-      raise "negatives not allowed: #{negatives.join(", ")}" 
-    end 
+    addends = convert_string(string)
+    return 0 if addends.empty?
+    addends.reduce(0) { |sum, n| sum + n }
   end
 
-  private
-
-  def decompose(input)
-    max_threshold( extract_numbers( input ) )
+  def convert_string(arg)
+    remove_delimiters(arg).map { |n| n.to_i }
   end
 
-  def extract_numbers(input)
-    input.scan(/-?\d+,?/).map { |num| num.to_i } 
-  end
-
-  def max_threshold(input)
-    input.select { |n| n < 1000 }
+  def remove_delimiters(arg)
+    custom_delimiter = /\/\/(.)\n/
+    delimiter = arg.scan(custom_delimiter).empty? ? "," : arg.scan(custom_delimiter)[0][0]
+    arg.gsub(custom_delimiter, "").gsub("\n", ",").split(delimiter)
   end
 
 end
